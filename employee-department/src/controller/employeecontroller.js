@@ -92,5 +92,49 @@ const updateemp = async (req, res) => {
     console.log(error.message);
   }
 };
+const addmultipleinfo = async(req, res) => {
+  try{
 
-module.exports = { add, findall, findemp, deleteemp, updateemp };
+    await proRepo.save(req.body);
+    
+      res.status(200).json({ 
+        status:appConst.status.success,
+        
+        message:"inserted",
+      })
+    }
+
+  catch(error)
+  {
+    console.log(error.message);
+    res.status(400).json({
+      status: appConst.status.fail,
+      response: null,
+      message:error.message
+    })
+  }
+ 
+}
+
+//delete multiple information
+
+const deleteinfo1 = async (req, res) => {
+  try {
+    const resp = await proRepo.delete(req.body);
+    res.status(200).json({
+      status: appConst.status.success,
+      response: resp.count,
+      message: null,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({
+      status: appConst.status.fail,
+      response: null,
+      message: error.message,
+    });
+  }
+};
+
+
+module.exports = { add, findall, findemp, deleteemp, updateemp,addmultipleinfo, deleteinfo1};

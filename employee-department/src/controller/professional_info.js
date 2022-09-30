@@ -43,7 +43,59 @@ const findall = async (req, res) => {
 //getone
 const findinfo = async (req, res) => {
   try {
-    const resp = await proRepo.findOneBy({ pid: req.params.pid });
+    const resp = await proRepo.findOneBy({ pidconst addmultipleemployees = async(req, res) => {
+  try{
+    
+    await employeeRepo
+    .createQueryBuilder()
+    .insert()
+    .into(emp)
+    .values(
+     req.body
+    )
+    .execute();
+    
+      
+      res.status(200).json({ 
+        status:appConst.status.success,
+        
+        message:"inserted",
+      })
+    }
+
+  catch(error)
+  {
+    console.log(error.message);
+    res.status(400).json({
+      status: appConst.status.fail,
+      response: null,
+      message:error.message
+    })
+  }
+ 
+}
+
+//delete multiple employees 
+const deletemultiemp = async(req, res) => {
+  try{
+  await employeeRepo.delete(req.body);
+  res.status(200).json({ 
+    status:appConst.status.success,
+    
+    message:"inserted",
+  })
+}
+
+catch(error)
+{
+console.log(error.message);
+res.status(400).json({
+  status: appConst.status.fail,
+  response: null,
+  message:error.message
+})
+}
+: req.params.pid });
     res.send(resp);
     res.status(200).json({
       status: appConst.status.success,
@@ -90,5 +142,57 @@ const updateProfessional = async (req, res) => {
     console.log(err.message);
   }
 };
+const addmultipleemployees = async(req, res) => {
+  try{
+    
+    await employeeRepo
+    .createQueryBuilder()
+    .insert()
+    .into(emp)
+    .values(
+     req.body
+    )
+    .execute();
+    
+      
+      res.status(200).json({ 
+        status:appConst.status.success,
+        
+        message:"inserted",
+      })
+    }
 
-module.exports = { add, findall, findinfo, deleteinfo, updateProfessional };
+  catch(error)
+  {
+    console.log(error.message);
+    res.status(400).json({
+      status: appConst.status.fail,
+      response: null,
+      message:error.message
+    })
+  }
+ 
+}
+
+//delete multiple employees 
+const deletemultiemp = async(req, res) => {
+  try{
+  await employeeRepo.delete(req.body);
+  res.status(200).json({ 
+    status:appConst.status.success,
+    
+    message:"inserted",
+  })
+}
+
+catch(error)
+{
+console.log(error.message);
+res.status(400).json({
+  status: appConst.status.fail,
+  response: null,
+  message:error.message
+})
+}
+
+module.exports = { add, findall, findinfo, deleteinfo, updateProfessional,addmultipleemployees, deletemultiemp};
